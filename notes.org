@@ -1,0 +1,14 @@
+* Start 2023-2024 calendar on 3/22 (according to the gregorian calendar)
+* Every month starts on a new moon
+** Jerusalem time, if the new moon happens after 12 hours before sundown, count the new on the subsequent day. 
+Check new moon time, check sundown.
+** https://www.timeanddate.com/services/api/
+** then, we have a list of new moon dates wrt the gregorian calendar
+** 49 days from 16 of Nisan to Pentecost
+* Layout
+** Put first day of the month above the row that lists the days of the week
+** Aviv/Nisan -> Aviv (Nisan)
+** thur -> thu
+** Adar II below Adar I
+** Contact info at the very bottom (Rick Harding P.O. Box 12, Fields Landing, CA 95537, rick95547@yahoo.com)
+* TODO: domain name, hosting
