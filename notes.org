@@ -1,7 +1,22 @@
 * Start 2023-2024 calendar on 3/22 (according to the gregorian calendar)
 * Every month starts on a new moon
 ** Jerusalem time, if the new moon happens after 12 hours before sundown, count the new on the subsequent day. 
-Check new moon time, check sundown.
+Check new moon time,
+// CHECK TIME ZONE + DAYLIGHT SAVINGS!
+// how to check time zone? go either from sun time (which is in UTC) to jerusalem time, or from moon time (which is in jerusalem time) to UTC, and verify that they are accurate with some third party.
+// Then, go ahead and take the difference between the two:
+// I think it'd be best to convert the sun time to jerusalem time and then compare that to timeanddate.com, since I also want to verify that the calculated sundown times are accurate.
+for (const { newMoonDate, newMoonTime } of newMoonTimeDate) {
+  const sundown = ...
+  const sunDownHours = sundown // ??
+  const newMoonHours = newMoonTime // ??
+  if ((sunDownHours - newMoonHours) > 12) {
+    same day
+  } else {
+    subsequent day
+  }
+}
+
 ** https://www.timeanddate.com/services/api/
 ** then, we have a list of new moon dates wrt the gregorian calendar
 ** 49 days from 16 of Nisan to Pentecost
