@@ -15,7 +15,8 @@
   along with calculate-new-moon-dates.  If not, see <https://www.gnu.org/licenses/>.
 */
 import suncalc from 'suncalc'
-import { findTimeZone, getZonedTime, getUnixTime } from 'timezone-support'
+import { findTimeZone, getUnixTime } from 'timezone-support'
+// import { getZonedTime } from 'timezone-support'
 
 import { rawNewMoons } from './rawNewMoons.js'
 
