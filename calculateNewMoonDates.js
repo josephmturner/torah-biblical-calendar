@@ -14,55 +14,38 @@
   You should have received a copy of the GNU General Public License
   along with calculate-new-moon-dates.  If not, see <https://www.gnu.org/licenses/>.
 */
-import fs from 'fs'
-import readline from 'readline'
-const file = readline.createInterface({
-    input: fs.createReadStream('new_moons'),
-    output: process.stdout,
-    terminal: false
-});
 import suncalc from 'suncalc'
 import { findTimeZone, getZonedTime, getUnixTime } from 'timezone-support'
 
-const newMoonDates = {};
+import { rawNewMoons } from './rawNewMoons.js'
 
-file.on('line', (line) => {
-  const [yearStr, monthStr, dayStr, hoursStr, minutesStr] = line.split('\t')
+const jerusalemTZ = findTimeZone('Asia/Jerusalem')
+const loc = [31.79592425, 35.21198075969497];
 
-  const year = Number(yearStr)
-  const month = Number(monthStr)
-  const day = Number(dayStr)
-  const hours = Number(hoursStr)
-  const minutes = Number(minutesStr)
+const newMoons = []
 
-  // Convert from jerusalem time to UTC in order to get the correct sunset time for the day
-  // Probably not necessary to convert timezones at the beginning since sunset times only change by <1min each day
-  const jerusalemNewMoonTime = { year, month, day, hours, minutes }
-  const jerusalemTZ = findTimeZone('Asia/Jerusalem')
-  const newMoonUTCDate = new Date(getUnixTime(jerusalemNewMoonTime, jerusalemTZ))
+for (const newMoonJerusalemTime of rawNewMoons) {
+  // The Jerusalem new moon time must be in UTC so that suncalc will give us the sunset time for correct day
+  const newMoonUTCTime = new Date(getUnixTime(newMoonJerusalemTime, jerusalemTZ))
+  const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
 
-  const loc = [31.79592425,35.21198075969497];
-  const { sunset } = suncalc.getTimes(newMoonUTCDate, loc[0], loc[1]);
-
-  // Convert calculated sunset times to Jerusalem TZ to verify them against (check daylight savings change happens properly too)
-  // https://www.timeanddate.com/sun/israel/jerusalem?month=4&year=2032
-  // const jerusalemSunsetTime = getZonedTime(sunset, jerusalemTZ)
+  // console.log('The following sunset times have been calculated. Verify them against another source, like\n\nhttps://www.timeanddate.com/sun/israel/jerusalem?month=4&year=2032\n\nBe sure to check that the daylight savings change is accounted for properly as well.\n\n')
+  // const jerusalemSunsetTime = getZonedTime(sunsetUTCTime, jerusalemTZ)
   // console.log(jerusalemSunsetTime)
 
-  const newMoonOccursXHoursBeforeSunset = (sunset - newMoonUTCDate) / 60 / 60 / 1000
+  const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000
 
-  if (Math.abs(newMoonOccursXHoursBeforeSunset) > 24) throw new Error('New moon and sunset times were off by more than 24 hours.')
-  if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) console.log(`New moon occurs within 30 minutes of 12 hours before sundown on ${newMoonUTCDate.getMonth() + 1}/${newMoonUTCDate.getDate()}/${newMoonUTCDate.getFullYear()}`)
-
-  if (newMoonDates[year] === undefined) newMoonDates[year] = []
-  if (newMoonOccursXHoursBeforeSunset > 12) {
-    newMoonDates[year].push(newMoonUTCDate)
-  } else {
-    newMoonUTCDate.setDate(newMoonUTCDate.getDate() + 1)
-    newMoonDates[year].push(newMoonUTCDate)
+  if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) {
+    const { year, month, day } = newMoonJerusalemTime
+    console.log(`New moon occurs within 30 minutes of sundown on ${month}/${day}/${year} (Jerusalem Time)`)
   }
-});
 
-file.on('close', () => {
-  console.log('at the end', newMoonDates)
-});
+  if (newMoonOccursXHoursBeforeSunset < 0) {
+    newMoonUTCTime.setDate(newMoonUTCTime.getDate() + 1)
+  }
+
+  // TODO: check lunar month has 29 or 30 days
+  newMoons.push(newMoonUTCTime)
+}
+
+console.log('at the end', newMoons)
