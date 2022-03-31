@@ -27,3 +27,8 @@ for (const { newMoonDate, newMoonTime } of newMoonTimeDate) {
 ** Adar II below Adar I
 ** Contact info at the very bottom (Rick Harding P.O. Box 12, Fields Landing, CA 95537, rick95547@yahoo.com)
 * TODO: domain name, hosting
+* testing webpack
+    "build": "./node_modules/.bin/webpack ./calculateNewMoonDates.js --mode=development ./dist/index.js"
+* rollup browser true??
+* rollup -c
+* How to bundle js code for easy upload to website?
