@@ -3,34 +3,9 @@ const calendarTemplate = `
   <h2 class="month" align="center">
     January 2021
   </h2>
-
-  <table bgcolor="lightgrey" align="center"
-         cellspacing="21" cellpadding="21">
-
-    <!-- The tr tag is used to enter
-    rows in the table -->
-
-    <!-- It is used to give the heading to the
-    table. We can give the heading to the
-    top and bottom of the table -->
-
-    <caption align="top">
-      <!-- Here we have used the attribute
-      that is style and we have colored
-      the sentence to make it better
-      depending on the web page-->
-    </caption>
-
-    <!-- Here th stands for the heading of the
-    table that comes in the first row-->
-
-    <!-- The text in this table header tag will
-    appear as bold and is center aligned-->
-
+  <table align="center">
     <thead>
       <tr>
-        <!-- Here we have applied inline style
-        to make it more attractive-->
         <th>7th day</th>
         <th>6th day</th>
         <th>5th day</th>
@@ -40,7 +15,6 @@ const calendarTemplate = `
         <th>1st day</th>
       </tr>
     </thead>
-
     <tbody>
       <tr>
         <td></td>
