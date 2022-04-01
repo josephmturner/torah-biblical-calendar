@@ -26,3 +26,8 @@ export const addDays = (dateObj, days = 1) => {
 export function daysBetweenDates(earlierDate, laterDate){
   return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
 }
+
+export function formatCalendarDate (dateObj) {
+  const pattern = 'iii M-d'
+  return format(dateObj, pattern, { timeZone: 'Europe/Berlin' })
+}
