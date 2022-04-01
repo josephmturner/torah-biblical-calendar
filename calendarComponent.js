@@ -3,7 +3,6 @@ const calendarTemplate = `
   <h2 class="month" align="center">
     January 2021
   </h2>
-  <br />
 
   <table bgcolor="lightgrey" align="center"
          cellspacing="21" cellpadding="21">
