@@ -15,11 +15,9 @@
   along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
 */
 import suncalc from 'suncalc'
-import dateFns from 'date-fns-tz'
+import { zonedTimeToUtc, formatInTimeZone } from 'date-fns-tz'
 
 import { rawNewMoons } from './rawNewMoons.js'
-
-const { zonedTimeToUtc, formatInTimeZone } = dateFns
 
 const jerusalemTZ = 'Asia/Jerusalem'
 const loc = [31.79592425, 35.21198075969497];
