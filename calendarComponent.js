@@ -72,8 +72,6 @@ export class Calendar extends HTMLElement {
     this.innerHTML = calendarTemplate;
   }
 
-  // Whenever an attibute is changed, this function is called. A switch statement is a good way to handle the various attributes.
-  // Note that this also gets called the first time the attribute is set, so we do not need any special initialisation code.
   attributeChangedCallback(name, oldValue, newValue) {
     switch(name) {
       case 'month':
@@ -93,11 +91,9 @@ export class Calendar extends HTMLElement {
     }
   }
 
-  // We need to specify which attributes will be watched for changes. If an attribute is not included here, attributeChangedCallback will never be called for it
   static get observedAttributes() {
     return ['month', 'profile-photo', 'message-text', 'time'];
   }
 }
 
-// Now that our class is defined, we can register it
 customElements.define('calendar-element', Calendar);
