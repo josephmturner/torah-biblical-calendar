@@ -37,6 +37,8 @@ function calculateNewMoons () {
 
     // Get sunset time in Jerusalem.
     const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
+    // Uncomment to see sunset times
+    // console.log(formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz'))
 
     // How long before sunset does the new moon occur?
     const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000
