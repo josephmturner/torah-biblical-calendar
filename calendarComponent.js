@@ -1,6 +1,6 @@
 // adapted from https://www.geeksforgeeks.org/design-a-calendar-using-html-and-css/
-const TEMPLATE = `
   <h2 align="center" style="color: orange;">
+const calendarTemplate = `
     January 2021
   </h2>
   <br />
@@ -105,7 +105,7 @@ const TEMPLATE = `
 export class Calendar extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = TEMPLATE;
+    this.innerHTML = calendarTemplate;
   }
 
   // Whenever an attibute is changed, this function is called. A switch statement is a good way to handle the various attributes.
