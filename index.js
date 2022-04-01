@@ -15,7 +15,6 @@
   along with calculate-new-moon-dates.  If not, see <https://www.gnu.org/licenses/>.
 */
 import suncalc from 'suncalc'
-import util from 'util'
 import dateFns from 'date-fns-tz'
 
 import { rawNewMoons } from './rawNewMoons.js'
@@ -80,5 +79,3 @@ function calculateNewMoons () {
 function daysBetweenDates(earlierDate, laterDate){
   return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
 }
-
-console.log(util.inspect(calculateNewMoons(), { maxArrayLength: null }))
