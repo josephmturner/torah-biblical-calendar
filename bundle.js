@@ -5111,8 +5111,8 @@ var biblicalLunisolarCalendar = (function (exports) {
     }
 
     // adapted from https://www.geeksforgeeks.org/design-a-calendar-using-html-and-css/
-    const TEMPLATE = `
-  <h2 align="center" style="color: orange;">
+    const calendarTemplate = `
+  <h2 class="month" align="center">
     January 2021
   </h2>
   <br />
@@ -5217,15 +5217,15 @@ var biblicalLunisolarCalendar = (function (exports) {
     class Calendar extends HTMLElement {
       constructor() {
         super();
-        this.innerHTML = TEMPLATE;
+        this.innerHTML = calendarTemplate;
       }
 
       // Whenever an attibute is changed, this function is called. A switch statement is a good way to handle the various attributes.
       // Note that this also gets called the first time the attribute is set, so we do not need any special initialisation code.
       attributeChangedCallback(name, oldValue, newValue) {
         switch(name) {
-          case 'author':
-            this.querySelector('.author').innerText = newValue;
+          case 'month':
+            this.querySelector('.month').innerText = newValue;
             this.querySelector('.message').classList.toggle('self', newValue === 'Me');
             break;
 
@@ -5243,7 +5243,7 @@ var biblicalLunisolarCalendar = (function (exports) {
 
       // We need to specify which attributes will be watched for changes. If an attribute is not included here, attributeChangedCallback will never be called for it
       static get observedAttributes() {
-        return ['author', 'profile-photo', 'message-text', 'time'];
+        return ['month', 'profile-photo', 'message-text', 'time'];
       }
     }
 
