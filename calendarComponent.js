@@ -76,7 +76,8 @@ export class Calendar extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     switch(name) {
       case 'month':
-        this.querySelector('.month').innerText = newValue;
+        this.querySelector('.month').innerText = monthNames[newValue - 1];
+        this.querySelector('.month').innerText += '\n' + gregorianMonthNames[newValue - 1];
         this.querySelector('.message').classList.toggle('self', newValue === 'Me');
         break;
 
