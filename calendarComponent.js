@@ -1,8 +1,6 @@
 // adapted from https://www.geeksforgeeks.org/design-a-calendar-using-html-and-css/
 const calendarTemplate = `
-  <h2 class="month" align="center">
-    January 2021
-  </h2>
+  <h2 class="month" align="center"></h2>
   <table align="center">
     <thead>
       <tr>
