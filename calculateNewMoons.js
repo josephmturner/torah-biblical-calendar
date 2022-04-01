@@ -65,8 +65,3 @@ export function calculateNewMoons () {
 
   return newMoons
 }
-
-// Based on https://stackoverflow.com/a/40975730
-function daysBetweenDates(earlierDate, laterDate){
-  return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
-}
