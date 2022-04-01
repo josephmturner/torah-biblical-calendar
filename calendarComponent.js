@@ -1,6 +1,6 @@
 // adapted from https://www.geeksforgeeks.org/design-a-calendar-using-html-and-css/
-  <h2 align="center" style="color: orange;">
 const calendarTemplate = `
+  <h2 class="month" align="center">
     January 2021
   </h2>
   <br />
@@ -112,8 +112,8 @@ export class Calendar extends HTMLElement {
   // Note that this also gets called the first time the attribute is set, so we do not need any special initialisation code.
   attributeChangedCallback(name, oldValue, newValue) {
     switch(name) {
-      case 'author':
-        this.querySelector('.author').innerText = newValue;
+      case 'month':
+        this.querySelector('.month').innerText = newValue;
         this.querySelector('.message').classList.toggle('self', newValue === 'Me');
         break;
 
@@ -131,7 +131,7 @@ export class Calendar extends HTMLElement {
 
   // We need to specify which attributes will be watched for changes. If an attribute is not included here, attributeChangedCallback will never be called for it
   static get observedAttributes() {
-    return ['author', 'profile-photo', 'message-text', 'time'];
+    return ['month', 'profile-photo', 'message-text', 'time'];
   }
 }
 
