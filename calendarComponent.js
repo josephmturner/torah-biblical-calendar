@@ -31,13 +31,13 @@ const calendarTemplate = `
       <tr>
         <!-- Here we have applied inline style
         to make it more attractive-->
-        <th>Sun</th>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>sat</th>
+        <th>7th day</th>
+        <th>6th day</th>
+        <th>5th day</th>
+        <th>4th day</th>
+        <th>3rd day</th>
+        <th>2nd day</th>
+        <th>1st day</th>
       </tr>
     </thead>
 
