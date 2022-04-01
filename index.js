@@ -15,66 +15,68 @@
   along with calculate-new-moon-dates.  If not, see <https://www.gnu.org/licenses/>.
 */
 import suncalc from 'suncalc'
-import { findTimeZone, getUnixTime } from 'timezone-support'
-// import { getZonedTime } from 'timezone-support'
+import util from 'util'
+import dateFns from 'date-fns-tz'
 
 import { rawNewMoons } from './rawNewMoons.js'
 
-const jerusalemTZ = findTimeZone('Asia/Jerusalem')
+const { zonedTimeToUtc, formatInTimeZone } = dateFns
+
+const jerusalemTZ = 'Asia/Jerusalem'
 const loc = [31.79592425, 35.21198075969497];
 
-const newMoons = []
+function calculateNewMoons () {
+  const newMoons = []
 
-for (const newMoonJerusalemTime of rawNewMoons) {
-  const { year, month, day } = newMoonJerusalemTime
+  for (const { year, month, day, hours, minutes } of rawNewMoons) {
+    // This Date object uses the current locale instead of Jerusalem.
+    const newMoonAnyTimeZone = new Date(year, month - 1, day, hours, minutes)
 
-  // The Jerusalem new moon time must be in UTC so that suncalc will give us the sunset time for correct day
-  const newMoonUTCTime = new Date(getUnixTime(newMoonJerusalemTime, jerusalemTZ))
-  const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
+    // Get a new Date object adjusted to Jerusalem time.
+    const newMoonUTCTime = zonedTimeToUtc(newMoonAnyTimeZone, jerusalemTZ)
 
-  // console.log('The following sunset times have been calculated. Verify them against another source, like\n\nhttps://www.timeanddate.com/sun/israel/jerusalem?month=4&year=2032\n\nBe sure to check that the daylight savings change is accounted for properly as well.\n\n')
-  // const jerusalemSunsetTime = getZonedTime(sunsetUTCTime, jerusalemTZ)
-  // console.log(jerusalemSunsetTime)
+    // Get sunset time in Jerusalem.
+    const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
 
-  const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000
+    // How long before sunset does the new moon occur?
+    const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000
 
-  if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) {
-    console.log(`New moon occurs within 30 minutes of sundown on ${month}/${day}/${year} (Jerusalem Time)`)
-  }
+    // Warn if the new moon time is close to sunset.
+    if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) {
+      console.log(`New moon (${formatInTimeZone(newMoonUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')}) occurs within 30 minutes of sundown (${formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')})`)
+    }
 
-  // Because Date can't handle locales other than the current one,
-  // we must create a new Date object (with the current locale)
-  // and use that in the daysBetweenDates function.
-  // Additionally, having the date in date format makes it easier to increment the date around month and year boundaries
-  const newMoonTimeInLocale = new Date(year, month - 1, day)
-  if (newMoonOccursXHoursBeforeSunset < 0) {
-    // If new moon happens after sunset, count it on the subsequent day
-    newMoonTimeInLocale.setDate(newMoonTimeInLocale.getDate() + 1)
+    if (newMoonOccursXHoursBeforeSunset < 0) {
+      // If new moon happens after sunset, count it on the subsequent day
+      newMoonAnyTimeZone.setDate(newMoonAnyTimeZone.getDate() + 1)
 
-    // Check that incrementing the day will not result in a 31-day month
-    const priorNewMoon = newMoons[newMoons.length - 1]
-    if (priorNewMoon !== undefined) {
-      const { year: priorYear, month: priorMonth, day: priorDay } = priorNewMoon
-      const priorNewMoonTimeInLocale = new Date(priorYear, priorMonth - 1, priorDay)
+      // Check that incrementing the day will not result in a 31-day month
+      const priorNewMoon = newMoons[newMoons.length - 1]
+      if (priorNewMoon !== undefined) {
+        const { year: priorYear, month: priorMonth, day: priorDay } = priorNewMoon
+        const priorNewMoonAnyTimeZone = new Date(priorYear, priorMonth - 1, priorDay)
 
-      const priorMonthLength = daysBetweenDates(priorNewMoonTimeInLocale, newMoonTimeInLocale)
+        const priorMonthLength = daysBetweenDates(priorNewMoonAnyTimeZone, newMoonAnyTimeZone)
 
-      if (priorMonthLength > 30) {
-        console.error(`Month beginning on ${priorNewMoonTimeInLocale.toDateString()} and ending on ${newMoonTimeInLocale.toDateString()} is longer than 30 days`)
+        if (priorMonthLength > 30) {
+          console.error(`Month beginning on ${priorNewMoonAnyTimeZone.toDateString()} and ending on ${newMoonAnyTimeZone.toDateString()} is longer than 30 days`)
+        }
       }
     }
+
+    newMoons.push({
+      year: newMoonAnyTimeZone.getFullYear(),
+      month: newMoonAnyTimeZone.getMonth() + 1,
+      day: newMoonAnyTimeZone.getDate()
+    })
   }
 
-  newMoons.push({
-    year: newMoonTimeInLocale.getFullYear(),
-    month: newMoonTimeInLocale.getMonth() + 1,
-    day: newMoonTimeInLocale.getDate()
-  })
+  return newMoons
 }
-
-console.log(newMoons)
 
 // Based on https://stackoverflow.com/a/40975730
 function daysBetweenDates(earlierDate, laterDate){
   return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
 }
+
+console.log(util.inspect(calculateNewMoons(), { maxArrayLength: null }))
