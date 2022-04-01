@@ -32,3 +32,4 @@ for (const { newMoonDate, newMoonTime } of newMoonTimeDate) {
 * rollup browser true??
 * rollup -c
 * How to bundle js code for easy upload to website?
+* TODO: don't import calculateNewMoons to index.js?
