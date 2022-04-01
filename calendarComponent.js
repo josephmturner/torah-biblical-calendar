@@ -14,15 +14,19 @@
   You should have received a copy of the GNU General Public License
   along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
 */
+import { addDays, daysBetweenDates, formatCalendarDate } from './dateHelpers'
+
 const monthNames = ["Aviv (Nisan)", "Ziv (Iyyar)", "Sivan", "Tammuz", "Av (Ab)", "Elul", "Ethanim (Tishrei)", "Bul (Cheshavan)", "Kislev (Chislev)", "Tevet (Tebeth)", "Shevat", "Adar I"]
 const gregorianMonthNames = ["March/April", "April/May", "May/June", "June/July", "July/August", "August/September", "September/October", "October/November", "November/December", "December/January", "January/February", "February/March"]
 const newMoonIndices = ["(1st New Moon)", "(2nd New Moon)", "(3rd New Moon)", "(4th New Moon)", "(5th New Moon)", "(6th New Moon)", "(7th New Moon)", "(8th New Moon)", "(9th New Moon)", "(10th New Moon)", "(11th New Moon)", "(12th New Moon)"]
 
 // FIXME: get this value from form
-const firstOfTheYear = new Date()
+const monthBegins = new Date()
+const monthEnds = addDays(monthBegins, 30)
 
 const calendarTemplate = `
   <h2 class="month" align="center"></h2>
+  <div class="day1">1st day</div>
   <table align="center">
     <thead>
       <tr>
@@ -97,18 +101,25 @@ export class Calendar extends HTMLElement {
       case 'month':
         this.querySelector('.month').innerText = monthNames[newValue - 1];
         this.querySelector('.month').innerText += '\n' + gregorianMonthNames[newValue - 1];
-        this.querySelector('.message').classList.toggle('self', newValue === 'Me');
+        /* for (let i = 1; i < daysBetweenDates(monthBegins, monthEnds); i++) { */
+          for (let i = 1; i < 30; i++) {
+            monthBegins.setDate(monthBegins.getDate() + 1)
+            this.querySelector('.day' + i).innerText += '\n' +
+              formatCalendarDate(monthBegins)
+            // break when monthBegins === monthEnd
+          }
         break;
+        /* this.querySelector('.message').classList.toggle('self', newValue === 'Me'); */
 
-      case 'profile-photo':
-        this.querySelector('.profile-photo').setAttribute('src', newValue);
-        break;
-      case 'message-text':
-        this.querySelector('.message-text').innerText = newValue;
-        break;
-      case 'time':
-        this.querySelector('time').innerText = newValue;
-        break;
+        /* case 'profile-photo':
+         *   this.querySelector('.profile-photo').setAttribute('src', newValue);
+         *   break;
+         * case 'message-text':
+         *   this.querySelector('.message-text').innerText = newValue;
+         *   break;
+         * case 'time':
+         *   this.querySelector('time').innerText = newValue;
+         *   break; */
     }
   }
 
