@@ -54,10 +54,7 @@ export function calculateNewMoons () {
       // Check that incrementing the day will not result in a 31-day month
       const priorNewMoon = newMoons[newMoons.length - 1]
       if (priorNewMoon !== undefined) {
-        const { year: priorYear, month: priorMonth, day: priorDay } = priorNewMoon
-        const priorNewMoonAnyTimeZone = new Date(priorYear, priorMonth - 1, priorDay)
-
-        const priorMonthLength = daysBetweenDates(priorNewMoonAnyTimeZone, newMoonAnyTimeZone)
+        const priorMonthLength = daysBetweenDates(priorNewMoon, newMoonAnyTimeZone)
 
         if (priorMonthLength > 30) {
           console.error(`Month beginning on ${priorNewMoonAnyTimeZone.toDateString()} and ending on ${newMoonAnyTimeZone.toDateString()} is longer than 30 days`)
@@ -65,11 +62,7 @@ export function calculateNewMoons () {
       }
     }
 
-    newMoons.push({
-      year: newMoonAnyTimeZone.getFullYear(),
-      month: newMoonAnyTimeZone.getMonth() + 1,
-      day: newMoonAnyTimeZone.getDate()
-    })
+    newMoons.push(newMoonAnyTimeZone)
   }
 
   return newMoons
