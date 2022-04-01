@@ -5,10 +5,9 @@ export default {
   input: 'index.js',
   output: {
     file: 'bundle.js',
-    format: 'cjs'
+    format: 'iife'
   },
   plugins: [nodeResolve(), commonjs({
     include: [ "./index.js", "node_modules/**" ],
   })],
-  external: ['suncalc', 'timezone-support']
 };
