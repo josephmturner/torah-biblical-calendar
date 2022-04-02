@@ -16,8 +16,7 @@
 */
 import { formatSelectDate } from './dateHelpers'
 
-import { yearBeginsDate } from './yearBeginsDate'
-import { calculateNewMoons } from './calculateNewMoons'
+import { allNewMoons, yearBeginsDate } from './newMoonsState'
 
 export class SelectNewMoon extends HTMLElement {
   constructor() {
@@ -45,7 +44,7 @@ export class SelectNewMoon extends HTMLElement {
     select.setAttribute('name', 'new-moon-select')
     select.setAttribute('class', 'new-moon-select')
 
-    for (const newMoon of calculateNewMoons()) {
+    for (const newMoon of allNewMoons) {
       const option = select.appendChild(document.createElement("option"))
       option.value = newMoon.getTime()
       option.innerHTML = formatSelectDate(newMoon)
