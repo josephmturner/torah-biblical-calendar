@@ -37,13 +37,6 @@ export class Calendar extends HTMLElement {
         month.startEndDate = this.startEndDates[i]
       }
     })
-
-    const p = document.createElement('p')
-    p.innerHTML = 'p'
-  }
-
-  static get observedAttributes() {
-    return ['month']
   }
 }
 
