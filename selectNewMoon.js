@@ -33,7 +33,7 @@ export class SelectNewMoon extends HTMLElement {
 
     const select = form.appendChild(document.createElement('select'))
     select.setAttribute('name', 'new-moon-select')
-    select.setAttribute('id', 'new-moon-select')
+    select.setAttribute('class', 'new-moon-select')
 
     for (const newMoon of calculateNewMoons()) {
       const option = select.appendChild(document.createElement("option"))
@@ -45,7 +45,15 @@ export class SelectNewMoon extends HTMLElement {
     input.setAttribute('name', 'submit')
     input.setAttribute('value', 'Submit')
 
-    this.shadowRoot.append(form);
+    const style = document.createElement('style');
+
+    style.textContent = `
+      .new-moon-select {
+        margin: 0 4px;
+      }
+    `
+
+    this.shadowRoot.append(style, form);
   }
 }
 
