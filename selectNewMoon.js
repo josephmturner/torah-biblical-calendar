@@ -16,6 +16,7 @@
 */
 import { formatSelectDate } from './dateHelpers'
 
+import { yearBeginsDate } from './yearBeginsDate'
 import { calculateNewMoons } from './calculateNewMoons'
 
 export class SelectNewMoon extends HTMLElement {
@@ -27,6 +28,15 @@ export class SelectNewMoon extends HTMLElement {
     const form = document.createElement('form')
     form.setAttribute('class', 'new-moon-date-picker')
 
+    function handleSuuuubmit (e) {
+      e.preventDefault()
+      const selectedTime = e.currentTarget['new-moon-select'].value
+
+      yearBeginsDate.setTime(selectedTime)
+    }
+
+    form.onsubmit = handleSuuuubmit;
+
     const label = form.appendChild(document.createElement('label'))
     label.setAttribute('for', 'new-moon-select')
     label.innerHTML = 'Select first new moon of the year'
@@ -37,11 +47,12 @@ export class SelectNewMoon extends HTMLElement {
 
     for (const newMoon of calculateNewMoons()) {
       const option = select.appendChild(document.createElement("option"))
+      option.value = newMoon.getTime()
       option.innerHTML = formatSelectDate(newMoon)
     }
 
     const input = form.appendChild(document.createElement('input'))
-    input.setAttribute('type', 'button')
+    input.setAttribute('type', 'submit')
     input.setAttribute('name', 'submit')
     input.setAttribute('value', 'Submit')
 
