@@ -5030,70 +5030,6 @@ var biblicalLunisolarCalendar = (function (exports) {
        { year: 2032, month: 11, day: 3,  hours: 7,  minutes: 44 },
        { year: 2032, month: 12, day: 2,  hours: 22, minutes: 52 }];
 
-    /*
-      Copyright (C) 2022 by Joseph Turner
-
-      biblical-lunisolar-calendar is free software: you can redistribute it and/or modify
-      it under the terms of the GNU General Public License as published by
-      the Free Software Foundation, either version 3 of the License, or
-      (at your option) any later version.
-
-      biblical-lunisolar-calendar is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU General Public License for more details.
-
-      You should have received a copy of the GNU General Public License
-      along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
-    */
-
-    const jerusalemTZ = 'Asia/Jerusalem';
-    const loc = [31.79592425, 35.21198075969497];
-
-    function calculateNewMoons () {
-      const newMoons = [];
-
-      for (const { year, month, day, hours, minutes } of rawNewMoons) {
-        // This Date object uses the current locale instead of Jerusalem.
-        const newMoonAnyTimeZone = new Date(year, month - 1, day, hours, minutes);
-
-        // Get a new Date object adjusted to Jerusalem time.
-        const newMoonUTCTime = dateFnsTz.zonedTimeToUtc(newMoonAnyTimeZone, jerusalemTZ);
-
-        // Get sunset time in Jerusalem.
-        const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
-        // Uncomment to see sunset times
-        // console.log(formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz'))
-
-        // How long before sunset does the new moon occur?
-        const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000;
-
-        // Warn if the new moon time is close to sunset.
-        if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) {
-          console.log(`New moon (${dateFnsTz.formatInTimeZone(newMoonUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')}) occurs within 30 minutes of sundown (${dateFnsTz.formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')})`);
-        }
-
-        if (newMoonOccursXHoursBeforeSunset < 0) {
-          // If new moon happens after sunset, count it on the subsequent day
-          newMoonAnyTimeZone.setDate(newMoonAnyTimeZone.getDate() + 1);
-
-          // Check that incrementing the day will not result in a 31-day month
-          const priorNewMoon = newMoons[newMoons.length - 1];
-          if (priorNewMoon !== undefined) {
-            const priorMonthLength = daysBetweenDates(priorNewMoon, newMoonAnyTimeZone);
-
-            if (priorMonthLength > 30) {
-              console.error(`Month beginning on ${priorNewMoonAnyTimeZone.toDateString()} and ending on ${newMoonAnyTimeZone.toDateString()} is longer than 30 days`);
-            }
-          }
-        }
-
-        newMoons.push(newMoonAnyTimeZone);
-      }
-
-      return newMoons
-    }
-
     function toInteger(dirtyNumber) {
       if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
         return NaN;
@@ -7541,9 +7477,83 @@ var biblicalLunisolarCalendar = (function (exports) {
       return result;
     };
 
+    // Based on https://stackoverflow.com/a/40975730
+    function daysBetweenDates(earlierDate, laterDate){
+      return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
+    }
+
     function formatCalendarDate (dateObj) {
       const pattern = 'iii M-d';
-      return format(dateObj, pattern, { timeZone: 'Europe/Berlin' })
+      return format(dateObj, pattern)
+    }
+
+    function formatSelectDate (dateObj) {
+      const pattern = 'iii M-d-Y';
+      return format(dateObj, pattern)
+    }
+
+    /*
+      Copyright (C) 2022 by Joseph Turner
+
+      biblical-lunisolar-calendar is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+
+      biblical-lunisolar-calendar is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
+    */
+
+    const jerusalemTZ = 'Asia/Jerusalem';
+    const loc = [31.79592425, 35.21198075969497];
+
+    function calculateNewMoons () {
+      const newMoons = [];
+
+      for (const { year, month, day, hours, minutes } of rawNewMoons) {
+        // This Date object uses the current locale instead of Jerusalem.
+        const newMoonAnyTimeZone = new Date(year, month - 1, day, hours, minutes);
+
+        // Get a new Date object adjusted to Jerusalem time.
+        const newMoonUTCTime = dateFnsTz.zonedTimeToUtc(newMoonAnyTimeZone, jerusalemTZ);
+
+        // Get sunset time in Jerusalem.
+        const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
+        // Uncomment to see sunset times
+        // console.log(formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz'))
+
+        // How long before sunset does the new moon occur?
+        const newMoonOccursXHoursBeforeSunset = (sunsetUTCTime - newMoonUTCTime) / 60 / 60 / 1000;
+
+        // Warn if the new moon time is close to sunset.
+        if (Math.abs(newMoonOccursXHoursBeforeSunset) < 0.5) {
+          console.log(`New moon (${dateFnsTz.formatInTimeZone(newMoonUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')}) occurs within 30 minutes of sundown (${dateFnsTz.formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz')})`);
+        }
+
+        if (newMoonOccursXHoursBeforeSunset < 0) {
+          // If new moon happens after sunset, count it on the subsequent day
+          newMoonAnyTimeZone.setDate(newMoonAnyTimeZone.getDate() + 1);
+
+          // Check that incrementing the day will not result in a 31-day month
+          const priorNewMoon = newMoons[newMoons.length - 1];
+          if (priorNewMoon !== undefined) {
+            const priorMonthLength = daysBetweenDates(priorNewMoon, newMoonAnyTimeZone);
+
+            if (priorMonthLength > 30) {
+              console.error(`Month beginning on ${priorNewMoonAnyTimeZone.toDateString()} and ending on ${newMoonAnyTimeZone.toDateString()} is longer than 30 days`);
+            }
+          }
+        }
+
+        newMoons.push(newMoonAnyTimeZone);
+      }
+
+      return newMoons
     }
 
     /*
@@ -7676,7 +7686,66 @@ var biblicalLunisolarCalendar = (function (exports) {
 
     customElements.define('calendar-element', Calendar);
 
+    /*
+      Copyright (C) 2022 by Joseph Turner
+
+      biblical-lunisolar-calendar is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+
+      biblical-lunisolar-calendar is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
+    */
+
+    class SelectNewMoon extends HTMLElement {
+      constructor() {
+        super();
+
+        this.attachShadow({mode: 'open'});
+
+        const form = document.createElement('form');
+        form.setAttribute('class', 'new-moon-date-picker');
+
+        const label = form.appendChild(document.createElement('label'));
+        label.setAttribute('for', 'new-moon-select');
+        label.innerHTML = 'Select first new moon of the year';
+
+        const select = form.appendChild(document.createElement('select'));
+        select.setAttribute('name', 'new-moon-select');
+        select.setAttribute('class', 'new-moon-select');
+
+        for (const newMoon of calculateNewMoons()) {
+          const option = select.appendChild(document.createElement("option"));
+          option.innerHTML = formatSelectDate(newMoon);
+        }
+
+        const input = form.appendChild(document.createElement('input'));
+        input.setAttribute('type', 'button');
+        input.setAttribute('name', 'submit');
+        input.setAttribute('value', 'Submit');
+
+        const style = document.createElement('style');
+
+        style.textContent = `
+      .new-moon-select {
+        margin: 0 4px;
+      }
+    `;
+
+        this.shadowRoot.append(style, form);
+      }
+    }
+
+    customElements.define('select-new-moon', SelectNewMoon);
+
     exports.Calendar = Calendar;
+    exports.SelectNewMoon = SelectNewMoon;
     exports.calculateNewMoons = calculateNewMoons;
 
     Object.defineProperty(exports, '__esModule', { value: true });
