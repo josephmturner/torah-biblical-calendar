@@ -1,8 +1,5 @@
 export const rawNewMoons =
-  [{ year: 2022, month: 1,  day: 2,  hours: 20, minutes: 33 },
-   { year: 2022, month: 2,  day: 1,  hours: 7,  minutes: 46 },
-   { year: 2022, month: 3,  day: 2,  hours: 19, minutes: 34 },
-   { year: 2022, month: 4,  day: 1,  hours: 9,  minutes: 24 },
+  [{ year: 2022, month: 4,  day: 1,  hours: 9,  minutes: 24 },
    { year: 2022, month: 4,  day: 30, hours: 23, minutes: 28 },
    { year: 2022, month: 5,  day: 30, hours: 14, minutes: 30 },
    { year: 2022, month: 6,  day: 29, hours: 5,  minutes: 52 },
