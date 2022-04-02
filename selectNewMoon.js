@@ -18,19 +18,9 @@ import { formatSelectDate } from './dateHelpers'
 
 import { calculateNewMoons } from './calculateNewMoons'
 
-// export const selectNewMoonTemplate = `
-//   <form action="" method="" class="new-moon-date-picker">
-//     <label for="new-moon-select">Select first new moon of the year</label>
-//     <select name="new-moon-select" id="new-moon-select">
-//     </select>
-//     <input type="button" name="submit" value="Submit"/>
-//   </form>
-// `;
-
 export class SelectNewMoon extends HTMLElement {
   constructor() {
     super();
-    // this.innerHTML = selectNewMoonTemplate;
 
     this.attachShadow({mode: 'open'});
 
