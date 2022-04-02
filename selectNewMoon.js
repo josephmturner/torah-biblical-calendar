@@ -27,14 +27,14 @@ export class SelectNewMoon extends HTMLElement {
     const form = document.createElement('form')
     form.setAttribute('class', 'new-moon-date-picker')
 
-    function handleSuuuubmit (e) {
+    function handleSubmit (e) {
       e.preventDefault()
       const selectedTime = e.currentTarget['new-moon-select'].value
 
       yearBeginsDate.setTime(selectedTime)
     }
 
-    form.onsubmit = handleSuuuubmit;
+    form.onsubmit = handleSubmit;
 
     const label = form.appendChild(document.createElement('label'))
     label.setAttribute('for', 'new-moon-select')
