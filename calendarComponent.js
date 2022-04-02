@@ -24,45 +24,22 @@ export class Calendar extends HTMLElement {
 
     this.startEndDates = getStartEndDates()
 
-    // const shadow = this.attachShadow({mode: 'open'})
-
     for (let i = 1; i < 13; i++) {
-      // const month = this.querySelector('month-element.month' + i)
       const month = this.querySelector(`month-element[month='${i}']`)
-      // console.log(this.querySelector(`month-element[month='${i}']`))
-
       month.startEndDate = this.startEndDates[i]
     }
 
-
-    // console.log(this)
     this.addEventListener('date-changed', (event) => {
       this.startEndDates = event.detail.startEndDates
-      // console.log('date-changed got it here!', date)
 
       for (let i = 1; i < 13; i++) {
-        // const month = this.querySelector('month-element.month' + i)
         const month = this.querySelector(`month-element[month='${i}']`)
-        // console.log(this.querySelector(`month-element[month='${i}']`))
-
         month.startEndDate = this.startEndDates[i]
       }
-
-
-
-
-      // while (this.querySelector('.month')) {
-      //   document.remove(this.querySelector('.month'))
-      // }
-
-      // this.querySelector('').amount = amount;
     })
 
     const p = document.createElement('p')
     p.innerHTML = 'p'
-    // this.appendChild(p)
-    // shadow.appendChild(document.createElement('p'))
-    // shadow.appendChild(document.createElement('month-element').cloneNode())
   }
 
   static get observedAttributes() {
