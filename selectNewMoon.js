@@ -16,13 +16,13 @@
 */
 import { formatSelectDate } from './dateHelpers'
 
-import { allNewMoons, yearBeginsDate } from './newMoonsState'
+import { allNewMoons, getStartEndDates } from './newMoonsState'
 
 export class SelectNewMoon extends HTMLElement {
   constructor() {
-    super();
+    super()
 
-    this.attachShadow({mode: 'open'});
+    this.attachShadow({mode: 'open'})
 
     const form = document.createElement('form')
     form.setAttribute('class', 'new-moon-date-picker')
@@ -31,10 +31,17 @@ export class SelectNewMoon extends HTMLElement {
       e.preventDefault()
       const selectedTime = e.currentTarget['new-moon-select'].value
 
-      yearBeginsDate.setTime(selectedTime)
+      const dateChangedEvent = new CustomEvent('date-changed', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          startEndDates: getStartEndDates(selectedTime),
+        }
+      })
+      this.dispatchEvent(dateChangedEvent)
     }
 
-    form.onsubmit = handleSubmit;
+    form.onsubmit = handleSubmit
 
     const label = form.appendChild(document.createElement('label'))
     label.setAttribute('for', 'new-moon-select')
@@ -45,7 +52,7 @@ export class SelectNewMoon extends HTMLElement {
     select.setAttribute('class', 'new-moon-select')
 
     for (const newMoon of allNewMoons) {
-      const option = select.appendChild(document.createElement("option"))
+      const option = select.appendChild(document.createElement('option'))
       option.value = newMoon.getTime()
       option.innerHTML = formatSelectDate(newMoon)
     }
@@ -55,7 +62,7 @@ export class SelectNewMoon extends HTMLElement {
     input.setAttribute('name', 'submit')
     input.setAttribute('value', 'Submit')
 
-    const style = document.createElement('style');
+    const style = document.createElement('style')
 
     style.textContent = `
       .new-moon-select {
@@ -63,8 +70,8 @@ export class SelectNewMoon extends HTMLElement {
       }
     `
 
-    this.shadowRoot.append(style, form);
+    this.shadowRoot.append(style, form)
   }
 }
 
-customElements.define('select-new-moon', SelectNewMoon);
+customElements.define('select-new-moon', SelectNewMoon)

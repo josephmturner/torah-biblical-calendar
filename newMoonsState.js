@@ -3,9 +3,7 @@ import { addDays } from './dateHelpers'
 
 export const allNewMoons = calculateNewMoons()
 
-export const yearBeginsDate = new Date(allNewMoons[0].getTime())
-
-export function getStartEndDates (newMoonTime) {
+export function getStartEndDates (newMoonTime = allNewMoons[0].getTime()) {
   const firstOfTheYearIndex = allNewMoons.findIndex(el => el.getTime() == newMoonTime)
 
   const startEndDates = {}
