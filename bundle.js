@@ -2484,9 +2484,9 @@ var biblicalLunisolarCalendar = (function (exports) {
   const gregorianMonthNames = ['March/April', 'April/May', 'May/June', 'June/July', 'July/August', 'August/September', 'September/October', 'October/November', 'November/December', 'December/January', 'January/February', 'February/March'];
 
   const monthTemplate = `
-  <h2 class="month" align="center"></h2>
+  <h2 class="month"></h2>
   <div class="day1">1st day</div>
-  <table align="center">
+  <table>
     <thead>
       <tr>
         <th>7th day</th>
