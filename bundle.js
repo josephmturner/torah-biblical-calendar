@@ -2484,9 +2484,13 @@ var biblicalLunisolarCalendar = (function (exports) {
   const gregorianMonthNames = ['March/April', 'April/May', 'May/June', 'June/July', 'July/August', 'August/September', 'September/October', 'October/November', 'November/December', 'December/January', 'January/February', 'February/March'];
 
   const monthTemplate = `
-  <h2 class="month"></h2>
-  <div class="day1">1st day</div>
   <table>
+    <thead>
+      <tr>
+        <th class="day1">1st day</th>
+        <th colspan="6" class="month-header"></th>
+      </tr>
+    </thead>
     <thead>
       <tr>
         <th>7th day</th>
@@ -2568,9 +2572,9 @@ var biblicalLunisolarCalendar = (function (exports) {
     }
 
     render() {
-      const monthHeader = this.querySelector('h2.month');
+      const monthHeader = this.querySelector('.month-header');
       const monthIndex = this.getAttribute('month');
-      monthHeader.innerText = monthNames[monthIndex - 1] + '\n' + '\n' + gregorianMonthNames[monthIndex - 1];
+      monthHeader.innerText = monthNames[monthIndex - 1] + ' ' + gregorianMonthNames[monthIndex - 1];
 
       if (this.startEndDate !== null) {
         const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1;
