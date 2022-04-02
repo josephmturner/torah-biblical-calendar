@@ -17,14 +17,14 @@
 import { format } from 'date-fns'
 
 export const addDays = (dateObj, days = 1) => {
-  const result = new Date(dateObj);
-  result.setDate(result.getDate() + days);
-  return result;
-};
+  const result = new Date(dateObj)
+  result.setDate(result.getDate() + days)
+  return result
+}
 
 // Based on https://stackoverflow.com/a/40975730
 export function daysBetweenDates(earlierDate, laterDate){
-  return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000;
+  return (Date.UTC(laterDate.getFullYear(), laterDate.getMonth(), laterDate.getDate()) - Date.UTC(earlierDate.getFullYear(), earlierDate.getMonth(), earlierDate.getDate())) / 24 / 60 / 60 / 1000
 }
 
 export function formatCalendarDate (dateObj) {
