@@ -21,7 +21,7 @@ import { rawNewMoons } from './rawNewMoons'
 import { daysBetweenDates } from './dateHelpers'
 
 const jerusalemTZ = 'Asia/Jerusalem'
-const loc = [31.79592425, 35.21198075969497];
+const loc = [31.79592425, 35.21198075969497]
 
 export function calculateNewMoons () {
   const newMoons = []
@@ -34,7 +34,7 @@ export function calculateNewMoons () {
     const newMoonUTCTime = zonedTimeToUtc(newMoonAnyTimeZone, jerusalemTZ)
 
     // Get sunset time in Jerusalem.
-    const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1]);
+    const { sunset: sunsetUTCTime } = suncalc.getTimes(newMoonUTCTime, loc[0], loc[1])
     // Uncomment to see sunset times
     // console.log(formatInTimeZone(sunsetUTCTime, jerusalemTZ, 'yyyy-MM-dd HH:mm zzz'))
 
@@ -51,9 +51,9 @@ export function calculateNewMoons () {
       newMoonAnyTimeZone.setDate(newMoonAnyTimeZone.getDate() + 1)
 
       // Check that incrementing the day will not result in a 31-day month
-      const priorNewMoon = newMoons[newMoons.length - 1]
-      if (priorNewMoon !== undefined) {
-        const priorMonthLength = daysBetweenDates(priorNewMoon, newMoonAnyTimeZone)
+      const priorNewMoonAnyTimeZone = newMoons[newMoons.length - 1]
+      if (priorNewMoonAnyTimeZone !== undefined) {
+        const priorMonthLength = daysBetweenDates(priorNewMoonAnyTimeZone, newMoonAnyTimeZone)
 
         if (priorMonthLength > 30) {
           console.error(`Month beginning on ${priorNewMoonAnyTimeZone.toDateString()} and ending on ${newMoonAnyTimeZone.toDateString()} is longer than 30 days`)
