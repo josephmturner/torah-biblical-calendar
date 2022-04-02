@@ -1,3 +1,15 @@
+/* colors */
+:root {
+  --new-moon: #68cbec;
+  --sabbath: #e10d0d;
+  --passover: #e1490d;
+  --pentecost: #f88b8b;
+  --trumpets: #f223b4;
+  --wave-sheaves: #ecdd01;
+  --unleavened-bread: #b66b46;
+  --tabernacles: #50ce2d;
+}
+
 h1 {
   text-align: center;
 }
