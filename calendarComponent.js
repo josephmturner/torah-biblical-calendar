@@ -89,6 +89,7 @@ const calendarTemplate = `
     </tbody>
   </table>
 `;
+export { SelectNewMoon } from './selectNewMoon'
 
 export class Calendar extends HTMLElement {
   constructor() {
