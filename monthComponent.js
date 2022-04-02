@@ -105,6 +105,10 @@ export class Month extends HTMLElement {
   }
 
   render() {
+    const monthHeader = this.querySelector('h2.month')
+    const monthIndex = this.getAttribute('month')
+    monthHeader.innerText = monthNames[monthIndex - 1] + '\n' + '\n' + gregorianMonthNames[monthIndex - 1]
+
     if (this.startEndDate !== null) {
       const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1
       for (let i = 1; i <= monthLength; i++) {
@@ -114,12 +118,8 @@ export class Month extends HTMLElement {
     }
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch(name) {
-    case 'month':
-      this.querySelector('h2.month').innerText = monthNames[newValue - 1]
-      this.querySelector('h2.month').innerText += '\n' + gregorianMonthNames[newValue - 1]
-    }
+  connectedCallback () {
+    this.render()
   }
 
   static get observedAttributes() {
