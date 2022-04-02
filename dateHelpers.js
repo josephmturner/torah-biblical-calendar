@@ -31,3 +31,8 @@ export function formatCalendarDate (dateObj) {
   const pattern = 'iii M-d'
   return format(dateObj, pattern)
 }
+
+export function formatSelectDate (dateObj) {
+  const pattern = 'iii M-d-Y'
+  return format(dateObj, pattern)
+}
