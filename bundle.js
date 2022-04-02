@@ -7669,6 +7669,11 @@ var biblicalLunisolarCalendar = (function (exports) {
             const cell = this.querySelector('.day' + i);
             cell.innerText = i + '\n' + formatCalendarDate(addDays(this.startEndDate.start, i - 1));
           }
+
+          if (monthLength === 29) {
+            const day30Cell = this.querySelector('.day' + 30);
+            day30Cell.innerHTML = '';
+          }
         }
       }
 
