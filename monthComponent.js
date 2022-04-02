@@ -21,9 +21,9 @@ const gregorianMonthNames = ['March/April', 'April/May', 'May/June', 'June/July'
 const newMoonIndices = ['(1st New Moon)', '(2nd New Moon)', '(3rd New Moon)', '(4th New Moon)', '(5th New Moon)', '(6th New Moon)', '(7th New Moon)', '(8th New Moon)', '(9th New Moon)', '(10th New Moon)', '(11th New Moon)', '(12th New Moon)']
 
 const monthTemplate = `
-  <h2 class="month" align="center"></h2>
+  <h2 class="month"></h2>
   <div class="day1">1st day</div>
-  <table align="center">
+  <table>
     <thead>
       <tr>
         <th>7th day</th>
