@@ -6,7 +6,8 @@
     "suncalc": "^1.9.0"
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "start": "rollup -cw"
   },
   "type": "module",
   "devDependencies": {
