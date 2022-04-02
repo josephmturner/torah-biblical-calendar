@@ -126,10 +126,6 @@ export class Month extends HTMLElement {
   connectedCallback () {
     this.render()
   }
-
-  static get observedAttributes() {
-    return ['month']
-  }
 }
 
 customElements.define('month-element', Month)

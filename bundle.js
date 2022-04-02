@@ -2587,11 +2587,7 @@ var biblicalLunisolarCalendar = (function (exports) {
     }
 
     connectedCallback () {
-      render();
-    }
-
-    static get observedAttributes() {
-      return ['month']
+      this.render();
     }
   }
 
