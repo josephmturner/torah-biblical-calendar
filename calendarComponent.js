@@ -109,17 +109,6 @@ export class Calendar extends HTMLElement {
             // break when monthBegins === monthEnd
           }
         break;
-        /* this.querySelector('.message').classList.toggle('self', newValue === 'Me'); */
-
-        /* case 'profile-photo':
-         *   this.querySelector('.profile-photo').setAttribute('src', newValue);
-         *   break;
-         * case 'message-text':
-         *   this.querySelector('.message-text').innerText = newValue;
-         *   break;
-         * case 'time':
-         *   this.querySelector('time').innerText = newValue;
-         *   break; */
     }
   }
 
