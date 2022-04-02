@@ -29,5 +29,5 @@ export function daysBetweenDates(earlierDate, laterDate){
 
 export function formatCalendarDate (dateObj) {
   const pattern = 'iii M-d'
-  return format(dateObj, pattern, { timeZone: 'Europe/Berlin' })
+  return format(dateObj, pattern)
 }
