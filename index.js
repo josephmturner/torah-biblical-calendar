@@ -16,3 +16,4 @@
 */
 export { calculateNewMoons } from './calculateNewMoons'
 export { Calendar } from './calendarComponent'
+export { SelectNewMoon } from './selectNewMoon'
