@@ -113,6 +113,10 @@ export class Month extends HTMLElement {
     const monthIndex = this.getAttribute('month')
     monthHeader.innerText = monthNames[monthIndex - 1] + ' ' + gregorianMonthNames[monthIndex - 1]
 
+    if (monthIndex == 1) {
+      this.querySelector('.day1').classList.toggle('trumpets', true)
+    }
+
     if (this.startEndDate !== null) {
       const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1
       for (let i = 1; i <= monthLength; i++) {

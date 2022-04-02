@@ -22,3 +22,11 @@ h1 {
 table {
   width: 600px;
 }
+
+.day1 {
+  background-color: var(--new-moon);
+}
+
+.day1.trumpets {
+  background-color: var(--trumpets);
+}
