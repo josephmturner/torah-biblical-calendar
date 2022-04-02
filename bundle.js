@@ -4893,10 +4893,7 @@ var biblicalLunisolarCalendar = (function (exports) {
     };
 
     const rawNewMoons =
-      [{ year: 2022, month: 1,  day: 2,  hours: 20, minutes: 33 },
-       { year: 2022, month: 2,  day: 1,  hours: 7,  minutes: 46 },
-       { year: 2022, month: 3,  day: 2,  hours: 19, minutes: 34 },
-       { year: 2022, month: 4,  day: 1,  hours: 9,  minutes: 24 },
+      [{ year: 2022, month: 4,  day: 1,  hours: 9,  minutes: 24 },
        { year: 2022, month: 4,  day: 30, hours: 23, minutes: 28 },
        { year: 2022, month: 5,  day: 30, hours: 14, minutes: 30 },
        { year: 2022, month: 6,  day: 29, hours: 5,  minutes: 52 },
@@ -7665,17 +7662,6 @@ var biblicalLunisolarCalendar = (function (exports) {
                 // break when monthBegins === monthEnd
               }
             break;
-            /* this.querySelector('.message').classList.toggle('self', newValue === 'Me'); */
-
-            /* case 'profile-photo':
-             *   this.querySelector('.profile-photo').setAttribute('src', newValue);
-             *   break;
-             * case 'message-text':
-             *   this.querySelector('.message-text').innerText = newValue;
-             *   break;
-             * case 'time':
-             *   this.querySelector('time').innerText = newValue;
-             *   break; */
         }
       }
 
@@ -7685,6 +7671,8 @@ var biblicalLunisolarCalendar = (function (exports) {
     }
 
     customElements.define('calendar-element', Calendar);
+
+    const yearBeginsDate = new Date();
 
     /*
       Copyright (C) 2022 by Joseph Turner
@@ -7712,6 +7700,15 @@ var biblicalLunisolarCalendar = (function (exports) {
         const form = document.createElement('form');
         form.setAttribute('class', 'new-moon-date-picker');
 
+        function handleSuuuubmit (e) {
+          e.preventDefault();
+          const selectedTime = e.currentTarget['new-moon-select'].value;
+
+          yearBeginsDate.setTime(selectedTime);
+        }
+
+        form.onsubmit = handleSuuuubmit;
+
         const label = form.appendChild(document.createElement('label'));
         label.setAttribute('for', 'new-moon-select');
         label.innerHTML = 'Select first new moon of the year';
@@ -7722,11 +7719,12 @@ var biblicalLunisolarCalendar = (function (exports) {
 
         for (const newMoon of calculateNewMoons()) {
           const option = select.appendChild(document.createElement("option"));
+          option.value = newMoon.getTime();
           option.innerHTML = formatSelectDate(newMoon);
         }
 
         const input = form.appendChild(document.createElement('input'));
-        input.setAttribute('type', 'button');
+        input.setAttribute('type', 'submit');
         input.setAttribute('name', 'submit');
         input.setAttribute('value', 'Submit');
 
