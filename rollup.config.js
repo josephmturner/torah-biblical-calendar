@@ -1,5 +1,5 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
 export default {
   input: 'index.js',
@@ -9,6 +9,6 @@ export default {
     format: 'iife'
   },
   plugins: [nodeResolve(), commonjs({
-    include: [ "./index.js", "node_modules/**" ],
+    include: [ './index.js', 'node_modules/**' ],
   })],
-};
+}
