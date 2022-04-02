@@ -107,9 +107,6 @@ export class Month extends HTMLElement {
   render() {
     if (this.startEndDate !== null) {
       const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1
-      // console.log('start', this.startEndDate.start)
-      // console.log('end', this.startEndDate.end)
-      // console.log(daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1)
       for (let i = 1; i <= monthLength; i++) {
         const cell = this.querySelector('.day' + i)
         cell.innerText = i + '\n' + formatCalendarDate(addDays(this.startEndDate.start, i - 1))
