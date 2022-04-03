@@ -23,6 +23,18 @@ table {
   width: 600px;
 }
 
+.month-name {
+  whitespace: nowrap;
+}
+
+.hebrew-name {
+  font-size: x-large;
+}
+
+.english-name {
+  font-size: large;
+}
+
 .day1 {
   background-color: var(--new-moon);
 }
