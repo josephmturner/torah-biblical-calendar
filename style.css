@@ -12,6 +12,7 @@
 
 h1, td {
   text-align: center;
+  white-space: nowrap;
 }
 
 .months-container {
