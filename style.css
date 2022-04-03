@@ -47,20 +47,35 @@ table {
   position: relative;
 }
 
-.half-day::after {
+.half-day::before, .half-day::after {
   height: 100%;
   content: ' ';
   position: absolute;
   top: 0;
-  right: 0;
   width: 50%;
   z-index: -1;
+}
+
+.half-day::after {
+  right: 0;
+}
+
+.half-day::before {
+  left: 0;
+}
+
+.unleavened-bread.half-day {
+  background-color: transparent;
+}
+
+.half-day.unleavened-bread::before {
+  background-color: var(--sabbath);
 }
 
 .half-day.unleavened-bread::after {
   background-color: var(--unleavened-bread);
 }
 
-.unleavened-bread:not(.half-day) {
+.unleavened-bread {
   background-color: var(--unleavened-bread);
 }
