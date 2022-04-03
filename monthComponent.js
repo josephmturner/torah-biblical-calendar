@@ -129,6 +129,12 @@ export class Month extends HTMLElement {
     if (monthIndex == 7) {
       this.querySelector('.day1').classList.toggle('trumpets', true)
       this.querySelector('.day10').classList.toggle('passover', true)
+      this.querySelector('.day15').classList.toggle('half-day', true)
+      this.querySelector('.day22').classList.toggle('half-day', true)
+      for (const i of [15, 16, 17, 18, 19, 20, 21, 22]) {
+        this.querySelector('.day' + i).classList.toggle('tabernacles', true)
+      }
+      this.querySelector('.day16').classList.toggle('wave-sheaves', true)
     }
 
     if (this.startEndDate !== null) {

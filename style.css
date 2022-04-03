@@ -83,3 +83,19 @@ table {
 .pentecost {
   background-color: var(--pentecost);
 }
+
+.tabernacles.half-day {
+  background-color: transparent;
+}
+
+.half-day.tabernacles::before {
+  background-color: var(--sabbath);
+}
+
+.half-day.tabernacles::after {
+  background-color: var(--tabernacles);
+}
+
+.tabernacles {
+  background-color: var(--tabernacles);
+}
