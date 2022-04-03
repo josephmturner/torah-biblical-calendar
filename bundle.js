@@ -2488,7 +2488,11 @@ var biblicalLunisolarCalendar = (function (exports) {
     <thead>
       <tr>
         <th class="day1">1st day</th>
-        <th colspan="6" class="month-header"></th>
+        <th colspan="6" class="month-header">
+          <span class="hebrew-name"></span>
+          <span>-</span>
+          <span class="english-name"></span>
+        </th>
       </tr>
     </thead>
     <thead>
@@ -2572,9 +2576,43 @@ var biblicalLunisolarCalendar = (function (exports) {
     }
 
     render() {
-      const monthHeader = this.querySelector('.month-header');
+      const monthHeaderHebrew = this.querySelector('.hebrew-name');
+      const monthHeaderEnglish = this.querySelector('.english-name');
       const monthIndex = this.getAttribute('month');
-      monthHeader.innerText = monthNames[monthIndex - 1] + ' ' + gregorianMonthNames[monthIndex - 1];
+      monthHeaderHebrew.innerText = monthNames[monthIndex - 1];
+      monthHeaderEnglish.innerText = gregorianMonthNames[monthIndex - 1];
+
+
+      this.querySelector('.day1').classList.toggle('new-moon', true);
+
+      for (const i of [8, 15, 22, 29]) {
+        this.querySelector('.day' + i).classList.toggle('sabbath', true);
+      }
+
+      if (monthIndex == 1) {
+        this.querySelector('.day14').classList.toggle('passover', true);
+        this.querySelector('.day15').classList.toggle('half-day', true);
+        for (const i of [15, 17, 18, 19, 20, 21]) {
+          this.querySelector('.day' + i).classList.toggle('unleavened-bread', true);
+        }
+        this.querySelector('.day16').classList.toggle('wave-sheaves', true);
+      }
+
+      if (monthIndex == 3) {
+        this.querySelector('.day6').classList.toggle('pentecost', true);
+      }
+
+      if (monthIndex == 7) {
+        this.querySelector('.day1').classList.toggle('trumpets', true);
+        this.querySelector('.day1').classList.toggle('sabbath', false);
+        this.querySelector('.day10').classList.toggle('passover', true);
+        this.querySelector('.day15').classList.toggle('half-day', true);
+        this.querySelector('.day22').classList.toggle('half-day', true);
+        for (const i of [15, 16, 17, 18, 19, 20, 21, 22]) {
+          this.querySelector('.day' + i).classList.toggle('tabernacles', true);
+        }
+        this.querySelector('.day16').classList.toggle('wave-sheaves', true);
+      }
 
       if (this.startEndDate !== null) {
         const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1;
