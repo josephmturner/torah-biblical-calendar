@@ -14,4 +14,4 @@
   You should have received a copy of the GNU General Public License
   along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
 */
-export { Calendar } from './calendarComponent'
+export { Calendar } from './calendarElement'

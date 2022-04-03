@@ -14,7 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with biblical-lunisolar-calendar.  If not, see <https://www.gnu.org/licenses/>.
 */
-export { Month } from './monthComponent'
+export { Month } from './monthElement'
 export { SelectNewMoon } from './selectNewMoon'
 import { getStartEndDates } from './newMoonsState'
 
