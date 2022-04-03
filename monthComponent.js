@@ -114,7 +114,6 @@ export class Month extends HTMLElement {
     monthHeader.innerText = monthNames[monthIndex - 1] + ' ' + gregorianMonthNames[monthIndex - 1]
 
     if (monthIndex == 1) {
-      this.querySelector('.day1').classList.toggle('trumpets', true)
       this.querySelector('.day14').classList.toggle('passover', true)
       this.querySelector('.day15').classList.toggle('half-day', true)
       for (const i of [15, 17, 18, 19, 20, 21]) {
@@ -124,6 +123,7 @@ export class Month extends HTMLElement {
     }
 
     if (monthIndex == 7) {
+      this.querySelector('.day1').classList.toggle('trumpets', true)
       this.querySelector('.day10').classList.toggle('passover', true)
     }
 
