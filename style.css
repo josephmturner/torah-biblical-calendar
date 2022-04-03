@@ -44,10 +44,6 @@ table {
   background-color: var(--trumpets);
 }
 
-.day8, .day15, .day22, .day29 {
-  background-color: var(--sabbath);
-}
-
 .passover {
   background-color: var(--passover);
 }
@@ -91,6 +87,10 @@ table {
 
 .unleavened-bread {
   background-color: var(--unleavened-bread);
+}
+
+.sabbath {
+  background-color: var(--sabbath);
 }
 
 .pentecost {

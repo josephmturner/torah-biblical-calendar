@@ -118,6 +118,11 @@ export class Month extends HTMLElement {
     monthHeaderHebrew.innerText = monthNames[monthIndex - 1]
     monthHeaderEnglish.innerText = gregorianMonthNames[monthIndex - 1]
 
+
+    for (const i of [8, 15, 22, 29]) {
+      this.querySelector('.day' + i).classList.toggle('sabbath', true)
+    }
+
     if (monthIndex == 1) {
       this.querySelector('.day14').classList.toggle('passover', true)
       this.querySelector('.day15').classList.toggle('half-day', true)
