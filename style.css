@@ -79,3 +79,7 @@ table {
 .unleavened-bread {
   background-color: var(--unleavened-bread);
 }
+
+.pentecost {
+  background-color: var(--pentecost);
+}
