@@ -131,3 +131,8 @@ table {
   display: flex;
   justify-content: space-evenly;
 }
+
+address {
+  margin-top: 10px;
+  text-align: center;
+}
