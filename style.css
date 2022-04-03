@@ -30,3 +30,11 @@ table {
 .day1.trumpets {
   background-color: var(--trumpets);
 }
+
+.passover {
+  background-color: var(--passover);
+}
+
+.wave-sheaves {
+  background-color: var(--wave-sheaves);
+}
