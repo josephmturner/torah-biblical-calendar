@@ -116,6 +116,10 @@ export class Month extends HTMLElement {
     if (monthIndex == 1) {
       this.querySelector('.day1').classList.toggle('trumpets', true)
       this.querySelector('.day14').classList.toggle('passover', true)
+      this.querySelector('.day15').classList.toggle('half-day', true)
+      for (const i of [15, 17, 18, 19, 20, 21]) {
+        this.querySelector('.day' + i).classList.toggle('unleavened-bread', true)
+      }
       this.querySelector('.day16').classList.toggle('wave-sheaves', true)
     }
 

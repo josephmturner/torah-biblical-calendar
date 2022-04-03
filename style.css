@@ -52,3 +52,11 @@ table {
   width: 50%;
   z-index: -1;
 }
+
+.half-day.unleavened-bread::after {
+  background-color: var(--unleavened-bread);
+}
+
+.unleavened-bread:not(.half-day) {
+  background-color: var(--unleavened-bread);
+}
