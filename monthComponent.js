@@ -26,6 +26,7 @@ const monthTemplate = `
         <th class="day1">1st day</th>
         <th colspan="6" class="month-header">
           <span class="hebrew-name"></span>
+          <span>-</span>
           <span class="english-name"></span>
         </th>
       </tr>
