@@ -32,6 +32,10 @@ export class Calendar extends HTMLElement {
     this.addEventListener('date-changed', (event) => {
       this.startEndDates = event.detail.startEndDates
 
+      const calendarTitle = this.querySelector('h1')
+      const selectedYear = this.startEndDates[1].start.getFullYear()
+      calendarTitle.innerHTML += ` (${selectedYear}-${selectedYear + 1})`
+
       for (let i = 1; i < 13; i++) {
         const month = this.querySelector(`month-element[month='${i}']`)
         month.startEndDate = this.startEndDates[i]
