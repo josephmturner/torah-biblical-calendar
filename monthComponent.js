@@ -24,7 +24,10 @@ const monthTemplate = `
     <thead>
       <tr>
         <th class="day1">1st day</th>
-        <th colspan="6" class="month-header"></th>
+        <th colspan="6" class="month-header">
+          <span class="hebrew-name"></span>
+          <span class="english-name"></span>
+        </th>
       </tr>
     </thead>
     <thead>
@@ -108,9 +111,11 @@ export class Month extends HTMLElement {
   }
 
   render() {
-    const monthHeader = this.querySelector('.month-header')
+    const monthHeaderHebrew = this.querySelector('.hebrew-name')
+    const monthHeaderEnglish = this.querySelector('.english-name')
     const monthIndex = this.getAttribute('month')
-    monthHeader.innerText = monthNames[monthIndex - 1] + ' ' + gregorianMonthNames[monthIndex - 1]
+    monthHeaderHebrew.innerText = monthNames[monthIndex - 1]
+    monthHeaderEnglish.innerText = gregorianMonthNames[monthIndex - 1]
 
     if (monthIndex == 1) {
       this.querySelector('.day14').classList.toggle('passover', true)
