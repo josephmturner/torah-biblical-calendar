@@ -138,6 +138,7 @@ export class Month extends HTMLElement {
 
     if (monthIndex == 7) {
       this.querySelector('.day1').classList.toggle('trumpets', true)
+      this.querySelector('.day1').classList.toggle('sabbath', false)
       this.querySelector('.day10').classList.toggle('passover', true)
       this.querySelector('.day15').classList.toggle('half-day', true)
       this.querySelector('.day22').classList.toggle('half-day', true)
