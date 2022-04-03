@@ -40,6 +40,9 @@ export class Calendar extends HTMLElement {
         const month = this.querySelector(`month-element[month='${i}']`)
         month.startEndDate = this.startEndDates[i]
       }
+
+      const selectNewMoon = this.querySelector('select-new-moon')
+      this.removeChild(selectNewMoon)
     })
   }
 }
