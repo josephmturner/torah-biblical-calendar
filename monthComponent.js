@@ -119,6 +119,8 @@ export class Month extends HTMLElement {
     monthHeaderEnglish.innerText = gregorianMonthNames[monthIndex - 1]
 
 
+    this.querySelector('.day1').classList.toggle('new-moon', true)
+
     for (const i of [8, 15, 22, 29]) {
       this.querySelector('.day' + i).classList.toggle('sabbath', true)
     }
