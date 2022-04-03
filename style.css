@@ -36,6 +36,7 @@ table {
 }
 
 .day1 {
+  font-weight: normal;
   background-color: var(--new-moon);
 }
 
