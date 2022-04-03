@@ -18,7 +18,6 @@ import { addDays, daysBetweenDates, formatCalendarDate } from './dateHelpers'
 
 const monthNames = ['Aviv (Nisan)', 'Ziv (Iyyar)', 'Sivan', 'Tammuz', 'Av (Ab)', 'Elul', 'Ethanim (Tishrei)', 'Bul (Cheshavan)', 'Kislev (Chislev)', 'Tevet (Tebeth)', 'Shevat', 'Adar I']
 const gregorianMonthNames = ['March/April', 'April/May', 'May/June', 'June/July', 'July/August', 'August/September', 'September/October', 'October/November', 'November/December', 'December/January', 'January/February', 'February/March']
-const newMoonIndices = ['(1st New Moon)', '(2nd New Moon)', '(3rd New Moon)', '(4th New Moon)', '(5th New Moon)', '(6th New Moon)', '(7th New Moon)', '(8th New Moon)', '(9th New Moon)', '(10th New Moon)', '(11th New Moon)', '(12th New Moon)']
 
 const monthTemplate = `
   <table>
