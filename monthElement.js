@@ -80,7 +80,7 @@ const monthTemplate = `
         <td class="day24">24</td>
         <td class="day23">23</td>
       </tr>
-      <tr>
+      <tr class="last">
         <td></td>
         <td></td>
         <td></td>
@@ -151,6 +151,19 @@ export class Month extends HTMLElement {
     }
 
     if (this.startEndDate !== null) {
+      if (monthIndex == 12) {
+        this.querySelector('.last').innerHTML = `
+        <td class="next new-moon">1</td>
+        <td colspan="5">
+          <span class="possible-adar-ii">New year or Adar II begins </span>
+        </td>
+        <td class="day30">30</td>
+`
+        console.log(this.querySelector('.next.new-moon'))
+
+        this.querySelector(".next.new-moon").innerText = '1\n' + formatCalendarDate(addDays(this.startEndDate.end, 1))
+      }
+
       const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1
       for (let i = 1; i <= monthLength; i++) {
         const cell = this.querySelector('.day' + i)
