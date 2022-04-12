@@ -2544,7 +2544,7 @@ var biblicalLunisolarCalendar = (function (exports) {
         <td class="day24">24</td>
         <td class="day23">23</td>
       </tr>
-      <tr>
+      <tr class="last">
         <td></td>
         <td></td>
         <td></td>
@@ -2615,6 +2615,19 @@ var biblicalLunisolarCalendar = (function (exports) {
       }
 
       if (this.startEndDate !== null) {
+        if (monthIndex == 12) {
+          this.querySelector('.last').innerHTML = `
+        <td class="next new-moon">1</td>
+        <td colspan="5">
+          <span class="possible-adar-ii">New year or Adar II begins </span>
+        </td>
+        <td class="day30">30</td>
+`;
+          console.log(this.querySelector('.next.new-moon'));
+
+          this.querySelector(".next.new-moon").innerText = '1\n' + formatCalendarDate(addDays(this.startEndDate.end, 1));
+        }
+
         const monthLength = daysBetweenDates(this.startEndDate.start, this.startEndDate.end) + 1;
         for (let i = 1; i <= monthLength; i++) {
           const cell = this.querySelector('.day' + i);
@@ -7527,6 +7540,21 @@ var biblicalLunisolarCalendar = (function (exports) {
   };
 
   const rawNewMoons = [
+    { year: 2021, month:  1, day: 13, hours:	7, minutes: 0 }       ,
+    { year: 2021, month:	2, day: 11, hours:	17, minutes:5 }       ,
+    { year: 2021, month:	3, day: 13, hours:	12, minutes:21 }       ,
+    { year: 2021, month:	4, day: 12, hours:	5 , minutes:30 }       ,
+    { year: 2021, month:	5, day: 11, hours:	17, minutes:59 }       ,
+    { year: 2021, month:	6, day: 10, hours:	13, minutes:52 }       ,
+    { year: 2021, month:	7, day: 10, hours:	4 , minutes:16 }       ,
+    { year: 2021, month:	8, day: 8, hours:	16, minutes:50 }       ,
+    { year: 2021, month:	9, day: 7, hours:	3 , minutes:51 }       ,
+    { year: 2021, month:	10, day: 6, hours:	14, minutes:5 }       ,
+    { year: 2021, month:	11, day: 4, hours:	23, minutes:14 }       ,
+    { year: 2021, month:	12, day: 4, hours:	9 , minutes:43 }       ,
+    { year: 2022, month: 1, day: 2, hours:	20, minutes:33 }       ,
+    { year: 2022, month:2 , day: 1, hours:	7 , minutes:46 }       ,
+    { year: 2022, month:3, day: 2, hours:	        19, minutes:34 }       ,
     { year: 2022, month: 4,  day: 1,  hours: 9,  minutes: 24 },
     { year: 2022, month: 4,  day: 30, hours: 23, minutes: 28 },
     { year: 2022, month: 5,  day: 30, hours: 14, minutes: 30 },
